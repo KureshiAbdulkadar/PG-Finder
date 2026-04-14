@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Color Tokens (Design System) */
+    --color-primary: #E53935;
+    --color-primary-hover: #D32F2F;
+    --color-primary-light: #FFEBEE;
+    
+    --color-bg: #F7F8FA;
+    --color-card: #FFFFFF;
+    --color-border: #E5E7EB;
+    --color-text-primary: #111827;
+    --color-text-secondary: #6B7280;
+    
+    --color-success: #16A34A;
+    --color-star: #F59E0B;
+
+    /* Spacing & Scaling - Sharp Modern Standard */
+    --radius-sm: 4px;
+    --radius-md: 8px; /* Standard radius for all elements */
+    --radius-lg: 12px;
+    --radius-card: 8px; /* Specific request: Match image radius exactly with card (8px) */
+    --radius-full: 999px;
+  }
+
+  .dark {
+    /* Dark Mode Tokens (No Pure Black) */
+    --color-primary: #FF4D4F;
+    --color-primary-hover: #FF7875;
+    --color-primary-light: #2A1215;
+    
+    --color-bg: #0F1115;
+    --color-card: #1A1D24;
+    --color-border: #2A2E36;
+    --color-text-primary: #E5E7EB;
+    --color-text-secondary: #9CA3AF;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply transition-colors duration-300;
+  }
+
+  body {
+    @apply text-text-primary bg-background font-sans overflow-x-hidden transition-colors duration-300;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-text-primary tracking-tight font-extrabold;
+  }
+}
+
+@layer components {
+  .material-symbols-outlined {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+    vertical-align: middle;
+  }
+
+  /* Premium Focus States */
+  input:focus, select:focus, textarea:focus {
+    @apply ring-2 ring-brand-red-light border-brand-red outline-none shadow-sm;
+  }
+}
+
+/* Elite Scroll Handling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom Tap Feedback */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Multi-step Wizard Transitions */
+.wizard-step-enter {
+  opacity: 0;
+  transform: translateX(10px);
+}
+.wizard-step-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
