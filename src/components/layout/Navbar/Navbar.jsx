@@ -70,22 +70,22 @@ const Navbar = () => {
   };
 
   return (
-    <header className="hidden md:block sticky top-0 z-50 bg-surface border-b border-border shadow-soft transition-colors duration-300">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 h-16 flex items-center justify-between gap-8">
+    <header className="hidden md:block sticky top-0 z-[100] bg-surface border-b border-border transition-colors duration-300">
+      <div className="max-w-[1440px] mx-auto px-6 h-[56px] flex items-center justify-between gap-4">
         {/* Logo */}
-        <Link to={ROUTES.HOME} className="flex items-center gap-2 shrink-0 group">
-          <div className="w-8 h-8 bg-brand-red rounded-md flex items-center justify-center shadow-md shadow-brand-red/20 group-hover:scale-105 transition-transform">
-             <span className="material-symbols-outlined text-white text-[20px] fill font-variation-fill">home_pin</span>
+        <Link to={ROUTES.HOME} className="flex items-center gap-2 shrink-0 group mr-4">
+          <div className="h-7 w-7 bg-brand rounded-md flex items-center justify-center shadow-md shadow-brand/20 group-hover:scale-105 transition-transform">
+             <span className="material-symbols-outlined text-white text-[18px] fill font-variation-fill">home_pin</span>
           </div>
-          <span className="text-brand-red text-xl font-black tracking-tighter hidden lg:block">
-            pgfinder
+          <span className="text-brand text-[18px] font-bold tracking-[-0.5px] hidden lg:block">
+            PGFinder
           </span>
         </Link>
 
-        {/* Integrated Search Bar (Sharp Professional Style) */}
-        <div className="flex-1 max-w-[600px] relative" ref={searchRef}>
-          <div className="flex items-center bg-surface border border-border rounded-md h-10 pl-4 pr-1 focus-within:ring-2 focus-within:ring-brand-red/10 focus-within:border-brand-red transition-all">
-            <span className="material-symbols-outlined text-text-muted mr-3 text-[18px]">search</span>
+        {/* Integrated Search Bar (Pill Shape) */}
+        <div className="flex-1 max-w-[420px] relative" ref={searchRef}>
+          <div className="flex items-center bg-input-bg border border-border-input rounded-full h-[40px] px-4 focus-within:ring-2 focus-within:ring-brand/10 focus-within:border-brand transition-all">
+            <span className="material-symbols-outlined text-text-muted mr-2 text-[18px]">search</span>
             <input 
               type="text"
               value={searchQuery}
@@ -96,18 +96,12 @@ const Navbar = () => {
               onFocus={() => searchQuery.length > 0 && setShowSuggestions(true)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
               placeholder="Search by city or area..."
-              className="bg-transparent flex-1 outline-none text-[13px] font-bold text-text-primary placeholder:text-text-secondary/60"
+              className="bg-transparent flex-1 outline-none text-[13px] font-medium text-text-primary placeholder:text-text-secondary"
             />
-            <button 
-                onClick={() => handleSearch()} 
-                className="bg-brand-red text-white w-8 h-8 rounded-md flex items-center justify-center hover:bg-brand-red-hover transition-colors shadow-sm"
-            >
-                <span className="material-symbols-outlined text-[16px] font-black">arrow_forward</span>
-            </button>
           </div>
 
           {showSuggestions && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-surface border border-border shadow-elevated rounded-md overflow-hidden animate-scale-in origin-top py-1 z-50">
+            <div className="absolute top-full left-0 right-0 mt-2 bg-surface border border-border shadow-modal rounded-xl overflow-hidden animate-scale-in origin-top py-1 z-50">
                {predictions
                  .slice(0, 5)
                  .map((prediction, i) => (
@@ -118,14 +112,14 @@ const Navbar = () => {
                     setSearchQuery(cityName);
                     handleSearch(cityName);
                   }}
-                  className="w-full text-left px-4 py-2.5 hover:bg-background flex items-center gap-3 transition-colors group"
+                  className="w-full text-left px-4 py-2.5 hover:bg-bg-hover flex items-center gap-3 transition-colors group"
                 >
-                  <div className="w-7 h-7 bg-background rounded-md flex items-center justify-center text-text-secondary group-hover:bg-brand-red/10 group-hover:text-brand-red transition-colors">
+                  <div className="w-7 h-7 bg-input-bg rounded-md flex items-center justify-center text-text-secondary group-hover:bg-brand-light group-hover:text-brand transition-colors">
                      <span className="material-symbols-outlined text-xs">location_city</span>
                   </div>
                   <div>
                     <p className="text-[13px] font-bold text-text-primary">{prediction.structured_formatting?.main_text || prediction.description}</p>
-                    <p className="text-[9px] font-medium text-text-secondary uppercase tracking-tighter">{prediction.structured_formatting?.secondary_text || 'India'}</p>
+                    <p className="text-[11px] font-medium text-text-secondary uppercase tracking-tighter">{prediction.structured_formatting?.secondary_text || 'India'}</p>
                   </div>
                 </button>
               ))}
@@ -134,10 +128,10 @@ const Navbar = () => {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-4 shrink-0">
+        <div className="flex items-center gap-3 shrink-0">
           <button 
             onClick={toggleTheme}
-            className="w-9 h-9 flex items-center justify-center rounded-md text-text-secondary hover:bg-background transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-full text-text-secondary hover:bg-bg-hover transition-colors"
             aria-label="Toggle Theme"
           >
             <span className="material-symbols-outlined text-[18px]">
@@ -145,41 +139,39 @@ const Navbar = () => {
             </span>
           </button>
 
-          <Link to={ROUTES.WISHLIST} className="hidden lg:flex items-center gap-2 text-text-secondary hover:text-brand-red transition-colors relative group px-3 py-2 rounded-md hover:bg-background">
-            <div className="relative">
-                <span className={`material-symbols-outlined text-2xl ${wishlist.length > 0 ? 'fill font-variation-fill text-brand-red' : ''}`}>favorite</span>
-                {wishlist.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-brand-red text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center border-2 border-surface">
-                    {wishlist.length}
-                  </span>
-                )}
-            </div>
-            <span className="text-xs font-bold">Wishlist</span>
+          <Link to={ROUTES.WISHLIST} className="hidden lg:flex items-center gap-1.5 text-text-primary hover:text-brand transition-colors relative px-3 py-1.5 rounded-md hover:bg-bg-hover">
+            <span className={`material-symbols-outlined text-[20px] ${wishlist.length > 0 ? 'fill font-variation-fill text-brand' : ''}`}>favorite</span>
+            <span className="text-[13px] font-medium">Wishlist</span>
+            {wishlist.length > 0 && (
+              <span className="absolute top-1 right-1.5 bg-brand text-white text-[8px] font-bold w-3.5 h-3.5 rounded-full flex items-center justify-center border border-surface">
+                {wishlist.length}
+              </span>
+            )}
           </Link>
 
           {user ? (
             <div className="relative group">
-              <button className="flex items-center gap-2 py-1.5 pl-3 pr-1.5 border border-border rounded-md hover:shadow-soft transition-all bg-surface">
+              <button className="flex items-center gap-2 py-1 pl-3 pr-1 border border-border rounded-full hover:shadow-card transition-all bg-surface">
                 <span className="material-symbols-outlined text-[18px] text-text-secondary">menu</span>
-                <div className="w-7 h-7 bg-text-primary text-surface rounded-md flex items-center justify-center font-bold text-[10px] shadow-sm">
+                <div className="w-7 h-7 bg-text-primary text-white rounded-full flex items-center justify-center font-bold text-[10px] shadow-sm">
                   {user.name.charAt(0)}
                 </div>
               </button>
               
-              <div className="absolute right-0 top-full mt-2 w-56 bg-surface border border-border shadow-elevated rounded-md p-1.5 hidden group-hover:flex flex-col animate-scale-in origin-top-right z-50 overflow-hidden">
-                <div className="px-4 py-3 border-b border-border/50 mb-1 bg-background/30 rounded-t-md">
-                   <p className="font-extrabold text-[13px] truncate text-text-primary">{user.name}</p>
-                   <p className="text-[9px] text-text-secondary font-bold uppercase tracking-widest mt-0.5">{user.role}</p>
+              <div className="absolute right-0 top-full mt-2 w-56 bg-surface border border-border shadow-modal rounded-xl p-1.5 hidden group-hover:flex flex-col animate-scale-in origin-top-right z-50 overflow-hidden">
+                <div className="px-4 py-3 border-b border-border mb-1 bg-bg-hover rounded-t-lg">
+                   <p className="font-bold text-[13px] truncate text-text-primary">{user.name}</p>
+                   <p className="text-[11px] text-text-secondary font-medium uppercase tracking-widest mt-0.5">{user.role}</p>
                 </div>
                 {isAdmin ? (
-                  <Link to="/admin" className="px-3 py-2.5 hover:bg-background rounded-md flex items-center gap-3 text-[13px] font-bold text-brand-red">
+                  <Link to="/admin" className="px-3 py-2.5 hover:bg-bg-hover rounded-md flex items-center gap-3 text-[13px] font-bold text-brand">
                     <span className="material-symbols-outlined text-[18px]">dashboard</span>
                     Admin Dashboard
                   </Link>
                 ) : (
                   <button 
                     onClick={() => setIsAuthModalOpen(true)}
-                    className="px-3 py-2.5 hover:bg-background rounded-md flex items-center gap-3 text-[13px] font-bold text-text-primary w-full text-left"
+                    className="px-3 py-2.5 hover:bg-bg-hover rounded-md flex items-center gap-3 text-[13px] font-bold text-text-primary w-full text-left"
                   >
                     <span className="material-symbols-outlined text-[18px]">add_business</span>
                     List your PG
@@ -195,7 +187,7 @@ const Navbar = () => {
             <div className="flex items-center gap-2">
               <button 
                 onClick={() => setIsAuthModalOpen(true)}
-                className="bg-brand-red text-white px-5 py-2 rounded-md font-bold text-xs hover:bg-brand-red-hover hover:shadow-md transition-all active:scale-95"
+                className="bg-brand text-white h-[36px] px-4 rounded-md font-semibold text-[13px] hover:bg-brand-hover transition-all active:scale-95 shadow-sm"
               >
                 Sign In
               </button>

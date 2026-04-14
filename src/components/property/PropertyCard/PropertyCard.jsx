@@ -36,7 +36,7 @@ const PropertyCard = ({ property, priority = false }) => {
 
   return (
     <div className="group relative bg-surface rounded-card overflow-hidden shadow-soft hover:shadow-premium hover:-translate-y-1 transition-all duration-500 border border-border/50 flex flex-col h-full">
-      {/* Visual Anchor: Image Section - Fixed Radius Fix */}
+      {/* Visual Anchor: Image Section */}
       <div className="relative aspect-[1.2] bg-background overflow-hidden rounded-t-card shrink-0">
         <Link to={`/property/${id}`} className="block h-full w-full">
           <PropertyImage 
@@ -77,8 +77,8 @@ const PropertyCard = ({ property, priority = false }) => {
           }}
           className={`absolute top-4 right-4 w-9 h-9 flex items-center justify-center rounded-full backdrop-blur-md border border-white/30 shadow-lg transition-all z-10 ${
             wishlistActive 
-              ? 'bg-brand-red text-white animate-heart-beat' 
-              : 'bg-white/20 text-white hover:bg-white hover:text-brand-red'
+              ? 'bg-brand text-white animate-heart-beat' 
+              : 'bg-white/20 text-white hover:bg-white hover:text-brand'
           }`}
           aria-label="Toggle Wishlist"
         >
@@ -86,7 +86,7 @@ const PropertyCard = ({ property, priority = false }) => {
             favorite
           </span>
         </button>
-
+ 
         {/* Verification Badge */}
         {isVerified && (
           <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-sm text-[10px] font-black text-success shadow-sm flex items-center gap-1 border border-success/20 pointer-events-none">
@@ -95,13 +95,13 @@ const PropertyCard = ({ property, priority = false }) => {
           </div>
         )}
       </div>
-
+ 
       {/* Content Section - Flex Body for Alignment */}
       <div className="p-4 flex flex-col flex-1 justify-between">
         <div>
           <div className="mb-3">
             <Link to={`/property/${id}`}>
-              <h3 className="text-[17px] font-extrabold text-text-primary tracking-tight leading-snug line-clamp-2 hover:text-brand-red transition-colors mb-1">
+              <h3 className="text-[17px] font-extrabold text-text-primary tracking-tight leading-snug line-clamp-2 hover:text-brand transition-colors mb-1">
                 {title}
               </h3>
             </Link>

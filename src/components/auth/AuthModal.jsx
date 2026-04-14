@@ -126,7 +126,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'user', isStandalone = false
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex md:items-center items-end justify-center px-0 md:px-4">
+    <div className="fixed inset-0 z-[1000] flex md:items-center items-end justify-center px-0 md:px-4">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={onClose}></div>
       {modalContent}
